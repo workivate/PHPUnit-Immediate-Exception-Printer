@@ -3,6 +3,7 @@ namespace ScriptFUSION\PHPUnitImmediateExceptionPrinter;
 
 use Exception;
 use PHPUnit\Framework\AssertionFailedError;
+use PHPUnit\Framework\Error\Deprecated;
 use PHPUnit\Framework\ExceptionWrapper;
 use PHPUnit\Framework\Test;
 use PHPUnit_Util_Test;
@@ -173,6 +174,9 @@ trait Printer
      */
     protected function writeException($exception)
     {
+        if (!$exception instanceof ExceptionWrapper) {
+            $exception = new ExceptionWrapper($exception);
+        }
         $this->writeNewLine();
 
         do {
