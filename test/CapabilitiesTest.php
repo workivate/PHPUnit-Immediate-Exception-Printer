@@ -1,6 +1,7 @@
 <?php
 namespace ScriptFUSIONTest\PHPUnitImmediateExceptionPrinter;
 
+use PHPUnit\Framework\Error\Deprecated;
 use PHPUnit\Framework\TestCase;
 
 final class CapabilitiesTest extends TestCase
@@ -18,6 +19,15 @@ final class CapabilitiesTest extends TestCase
     public function testException()
     {
         throw new \LogicException('foo');
+    }
+
+    public function testDeprecatedError()
+    {
+        //wrapped to get some stack trace
+        $a = function() {
+            throw new Deprecated('something is deprecated', 1, 'foo.php', 101);
+        };
+        $a();
     }
 
     public function testExceptionStackTrace()
